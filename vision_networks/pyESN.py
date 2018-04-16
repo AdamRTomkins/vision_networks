@@ -31,7 +31,7 @@ class ESN():
                  input_scaling=None, teacher_forcing=True, feedback_scaling=None,
                  teacher_scaling=None, teacher_shift=None,
                  out_activation=lambda x: x, inverse_out_activation=lambda x: x,
-                 random_state=None, silent=True, matrix=None, input_matrix=None,output_matrix=None,bias =False):
+                 random_state=None, silent=True, matrix=None, input_matrix=None,output_matrix=None):
         """
         Args:
             n_inputs: nr of input dimensions
@@ -94,11 +94,6 @@ class ESN():
             self.initweights_with_matrix(self.matrix,self.input_matrix,self.output_matrix)
         else:        
             self.initweights()
-
-        if bias == True:
-            self.bias = np.random.rand(1,n_reservoir)
-        else:
-            self.bias = np.zeros(1,n_reservoir)
             
     def initweights(self):
         # initialize recurrent weights:
@@ -229,7 +224,9 @@ class ESN():
         
         # remove the states which have no network output!
         if output_nodes is not None:
+            print "state shape %s" % list(states.shape)
             states = output_nodes * states
+            print "state shape after %s" % list(states.shape)
         
         
         self.states = states
