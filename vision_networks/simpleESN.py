@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def correct_dimensions(s, targetlength):
     """checks the dimensionality of some numeric argument s, broadcasts it
        to the specified length if possible.
@@ -11,7 +12,6 @@ def correct_dimensions(s, targetlength):
     Returns:
         None if s is None, else numpy vector of length targetlength
     """
-    
     if s is not None:
         s = np.array(s)
         if s.ndim == 0:
@@ -53,7 +53,6 @@ class ESN():
                           or None to use numpy's builting RandomState.
             silent: supress messages
         """
-        
         # check for proper dimensionality of all arguments and write them down.
         self.n_inputs = n_inputs
         self.n_reservoir = n_reservoir
@@ -88,9 +87,10 @@ class ESN():
         self.matrix = matrix
         self.input_matrix = input_matrix
         self.output_matrix = output_matrix
+    
         
         if self.matrix is not None:
-            
+            print "Using Matrix"
             self.initweights_with_matrix(self.matrix,self.input_matrix,self.output_matrix)
         else:        
             self.initweights()
@@ -129,7 +129,7 @@ class ESN():
         self.W = W * (self.spectral_radius / radius)
 
         if input_matrix is not None:
-            
+            print "Using Input Matrix"
             assert list(input_matrix.shape) == [self.n_reservoir, self.n_inputs]
             
             self.W_in = self.random_state_.rand(
@@ -166,19 +166,8 @@ class ESN():
             preactivation = (np.dot(self.W, state)
                              + np.dot(self.W_in, input_pattern))
             
-        
-        print "W shape : %s " % list(self.W.shape)
-        print "state shape : %s " % list(state.shape)
-        
-        
-        print "W_in shape : %s " % list(self.W_in.shape)
-        print "input_pattern shape : %s " % list(input_pattern.shape)
-        
-        activation = (np.tanh(preactivation)
+        return (np.tanh(preactivation)
                 + self.noise * (self.random_state_.rand(self.n_reservoir) - 0.5))
-        
-        print "activation shape : %s " % list(activation.shape)
-        return activation
 
     def _scale_inputs(self, inputs):
         """for each input dimension j: multiplies by the j'th entry in the
@@ -242,9 +231,9 @@ class ESN():
         self.full_states = states
         # remove the states which have no network output!
         if output_nodes is not None:
-            
+            print "state shape %s" % list(states.shape)
             states = output_nodes * states
-            
+            print "state shape after %s" % list(states.shape)
         
         
         self.states = states
