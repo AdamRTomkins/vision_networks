@@ -165,17 +165,11 @@ class ESN():
         else:
             preactivation = (np.dot(self.W, state)
                              + np.dot(self.W_in, input_pattern))
-            
-        
-        print "W shape : %s " % list(self.W.shape)
-        print "state shape : %s " % list(state.shape)
-        
-        
-        print "W_in shape : %s " % list(self.W_in.shape)
-        print "input_pattern shape : %s " % list(input_pattern.shape)
+       
         
         activation = (np.tanh(preactivation)
                 + self.noise * (self.random_state_.rand(self.n_reservoir) - 0.5))
+        
         
         print "activation shape : %s " % list(activation.shape)
         return activation

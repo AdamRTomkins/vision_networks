@@ -95,7 +95,7 @@ class MyESN(object):
                 
             self.images[trial] = image
             data, classes, ps, names = single_trial(image, cs,input_class=trial,hex_radius =0.03)
-
+hex
             self.trial_data.append(data)
             self.trial_class.append(classes)
 

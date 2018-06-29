@@ -3,6 +3,7 @@ import networkx as nx
 from pyESN import ESN
 from matplotlib import pyplot as plt
 import csv
+import math 
 
 from matplotlib import pyplot, patches
 
@@ -65,7 +66,6 @@ def draw_adjacency_matrix(G, node_order=None, partitions=[], colors=[]):
             current_idx += len(module)
             
 
-import math 
 def hex_points(center=(0,0), r=1,rotation=0):
     cx = center[0]
     cy = center[0]
@@ -137,11 +137,6 @@ def single_trial(image, centers,input_class,hex_radius =0.1,rotation = 0):
         input_data.append(d)
 
     return np.array(input_data), input_class, ps, names
-
-
-
-#image = bars_signal(n=100)
-image = bars_signal(n=100,on_size=3,off_size=10,on_val = 0.5,off_val = 0.1)
 
 
 def generate_centers(trial_length = 100,path_start = 0.2,path_end = 0.8):
